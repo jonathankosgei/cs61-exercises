@@ -12,6 +12,11 @@
 // filesize(f)
 //    Return the size of `f` in bytes. Returns -1 if `f` does not have a
 //    well-defined size (for instance, if it is a pipe).
+/*TODO: 
+ * create a stat structure, call fstat on the file and a ref to the stat structure
+ * returns some value, 0 or greater for success, also check if it's a reg file
+ * in which case return size in stated struct, else it's a demon, like a pipe or samtn
+ */
 off_t filesize(int fd) {
     struct stat s;
     int r = fstat(fd, &s);
@@ -55,6 +60,8 @@ int main(int argc, char* argv[]) {
     uintptr_t data_address = (uintptr_t) data;
 
     // Call `add`!
+    // TODO: check this stuff out again!
+    // weird function. function call by ref, pointing to functions
     int (*add)(int, int) = (int (*)(int, int)) (data_address + offset);
 
     printf("%d + %d = %d\n",
